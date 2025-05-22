@@ -4,11 +4,15 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import org.junit.jupiter.api.Test;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
 
+@SpringBootTest
 class RabbitMQTest {
 
     static ConnectionFactory factory = new ConnectionFactory();
@@ -68,5 +72,14 @@ class RabbitMQTest {
             // 跟上面一样, 最后一个参数为 false 只不过这里省了
             // channel.basicReject(delivery.getEnvelope().getDeliveryTag(), false);
         }, s -> {});
+    }
+
+    @Autowired
+    RabbitTemplate rabbitTemplate;
+
+    @Test
+    void templateProducerTest() {
+        String response = (String) rabbitTemplate.convertSendAndReceive("amq.direct", "queue1", "Hello World");
+        System.out.println(response);
     }
 }

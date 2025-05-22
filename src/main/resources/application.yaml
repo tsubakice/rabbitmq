@@ -1,0 +1,7 @@
+spring:
+  rabbitmq:
+    addresses: 47.108.130.188
+    port: 5672
+    username: root
+    password: 040905
+    virtual-host: /rabbitmq
