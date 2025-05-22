@@ -16,12 +16,12 @@ public class RabbitMQConfig {
 
     @Bean(value = "direct")
     public Exchange exchange() {
-        return ExchangeBuilder.directExchange("amq.direct").build();
+        return ExchangeBuilder.directExchange("my.direct").build();
     }
 
     @Bean(value = "queue1")
     public Queue queue() {
-        return QueueBuilder.nonDurable("queue1").build();
+        return QueueBuilder.durable("queue1").build();
     }
 
     @Bean(value = "direct-queue1")

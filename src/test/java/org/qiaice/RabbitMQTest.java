@@ -80,7 +80,6 @@ class RabbitMQTest {
 
     @Test
     void templateProducerTest() {
-        String response = (String) rabbitTemplate.convertSendAndReceive("amq.direct", "queue1", User.builder().build());
-        System.out.println(response);
+        rabbitTemplate.convertSendAndReceive("my.direct", "queue1", User.builder().build());
     }
 }

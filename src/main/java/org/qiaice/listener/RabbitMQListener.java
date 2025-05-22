@@ -1,15 +1,20 @@
 package org.qiaice.listener;
 
+import com.rabbitmq.client.Channel;
 import org.qiaice.entity.User;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
+
+import java.nio.charset.StandardCharsets;
 
 @Component
 public class RabbitMQListener {
 
     @RabbitListener(queues = "queue1", messageConverter = "jackson2JsonMessageConverter")
-    public String receive(User user) {
-        System.out.println("Received message: " + user);
-        return "响应成功";
+    public void receive(User user, Message message, Channel channel) {
+        System.out.println("Received user: " + user);
+        System.out.println("Received message: " + new String(message.getBody(), StandardCharsets.UTF_8));
+        System.out.println("Received channelId: " + channel.getChannelNumber());
     }
 }
