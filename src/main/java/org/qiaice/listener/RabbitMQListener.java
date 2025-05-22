@@ -1,17 +1,15 @@
 package org.qiaice.listener;
 
-import org.springframework.amqp.core.Message;
+import org.qiaice.entity.User;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
-
-import java.nio.charset.StandardCharsets;
 
 @Component
 public class RabbitMQListener {
 
-    @RabbitListener(queues = "queue1")
-    public String receive(Message message) {
-        System.out.println("Received message: " + new String(message.getBody(), StandardCharsets.UTF_8));
+    @RabbitListener(queues = "queue1", messageConverter = "jackson2JsonMessageConverter")
+    public String receive(User user) {
+        System.out.println("Received message: " + user);
         return "响应成功";
     }
 }
