@@ -4,7 +4,6 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import org.junit.jupiter.api.Test;
-import org.qiaice.entity.User;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -80,6 +79,6 @@ class RabbitMQTest {
 
     @Test
     void templateProducerTest() {
-        rabbitTemplate.convertSendAndReceive("my.direct", "queue", User.builder().build());
+        rabbitTemplate.convertSendAndReceive("my.direct", "queue", "Hello RabbitMQ");
     }
 }
