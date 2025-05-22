@@ -10,15 +10,8 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class RabbitMQListener {
 
-    @RabbitListener(queues = "queue1")
+    @RabbitListener(queues = "queue")
     public void receive1(Message message, Channel channel) {
-        int channelNumber = channel.getChannelNumber();
-        String decoded = new String(message.getBody(), StandardCharsets.UTF_8);
-        System.out.println("Received message(" + channelNumber + "): " + decoded);
-    }
-
-    @RabbitListener(queues = "queue2")
-    public void receive2(Message message, Channel channel) {
         int channelNumber = channel.getChannelNumber();
         String decoded = new String(message.getBody(), StandardCharsets.UTF_8);
         System.out.println("Received message(" + channelNumber + "): " + decoded);
