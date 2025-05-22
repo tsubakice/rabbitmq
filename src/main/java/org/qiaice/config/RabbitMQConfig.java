@@ -8,21 +8,34 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-    @Bean(value = "direct")
+    @Bean(value = "fanout")
     public Exchange exchange() {
-        return ExchangeBuilder.directExchange("my.direct").durable(true).build();
+        return ExchangeBuilder.fanoutExchange("my.fanout").durable(true).build();
     }
 
-    @Bean(value = "queue")
-    public Queue queue() {
-        return QueueBuilder.durable("queue").build();
+    @Bean(value = "queue1")
+    public Queue queue1() {
+        return QueueBuilder.durable("queue1").build();
     }
 
-    @Bean(value = "direct-queue")
-    public Binding binding(
-            @Qualifier(value = "direct") Exchange exchange,
-            @Qualifier(value = "queue") Queue queue
+    @Bean(value = "queue2")
+    public Queue queue2() {
+        return QueueBuilder.durable("queue2").build();
+    }
+
+    @Bean(value = "binding1")
+    public Binding binding1(
+            @Qualifier(value = "fanout") Exchange exchange,
+            @Qualifier(value = "queue1") Queue queue
     ) {
-        return BindingBuilder.bind(queue).to(exchange).with("queue").noargs();
+        return BindingBuilder.bind(queue).to(exchange).with("").noargs();
+    }
+
+    @Bean(value = "binding2")
+    public Binding binding3(
+            @Qualifier(value = "fanout") Exchange exchange,
+            @Qualifier(value = "queue2") Queue queue
+    ) {
+        return BindingBuilder.bind(queue).to(exchange).with("").noargs();
     }
 }
