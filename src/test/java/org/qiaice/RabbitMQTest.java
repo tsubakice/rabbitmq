@@ -80,6 +80,6 @@ class RabbitMQTest {
 
     @Test
     void templateProducerTest() {
-        rabbitTemplate.convertSendAndReceive("my.direct", "queue1", User.builder().build());
+        rabbitTemplate.convertSendAndReceive("my.direct", "queue", User.builder().build());
     }
 }

@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class RabbitMQListener {
 
-    @RabbitListener(queues = "queue1", messageConverter = "jackson2JsonMessageConverter")
+    @RabbitListener(queues = "dQueue", messageConverter = "jackson2JsonMessageConverter")
     public void receive(User user, Message message, Channel channel) {
         System.out.println("Received user: " + user);
         System.out.println("Received message: " + new String(message.getBody(), StandardCharsets.UTF_8));
